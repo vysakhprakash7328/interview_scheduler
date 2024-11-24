@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13 # Use the official PostgreSQL image
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: interview_scheduler
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  web:
+    build: .
+    container_name: django_app
+    environment:
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=interview_scheduler
+      - DB_USER=postgres
+      - DB_PASSWORD=admin
+      - DB_HOST=db
+      - DB_PORT=5432
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - backend
+    volumes:
+      - .:/app
+    command: ["./docker-entrypoint.sh"]
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
+    driver: bridge
