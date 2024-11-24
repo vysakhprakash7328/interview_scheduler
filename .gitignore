@@ -1,0 +1,6 @@
+venv/
+env/
+*/migrations/*
+# Ignore images directory
+IMAGES/
+__pycache__
