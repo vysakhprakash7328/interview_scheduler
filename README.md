@@ -147,7 +147,7 @@ Endpoint: /api/register_availability/
 
 4. Get Available Time Slots
 
-    Endpoint: /api/get_available_timeslots/
+    Endpoint: /api/get_availability/
     Method: GET
     Query Parameters:
     candidate: The ID of the candidate
