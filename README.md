@@ -24,7 +24,7 @@ This project provides an API to help schedule interviews by enabling candidates 
     Clone the repository:
 
 
-    git clone <repository_url>
+    git clone https://github.com/vysakhprakash7328/interview_scheduler.git
     cd interview-scheduling-api
     
     Create a virtual environment and activate it:
@@ -55,7 +55,7 @@ This project provides an API to help schedule interviews by enabling candidates 
     Clone the repository:
 
 
-    git clone <repository_url>
+    git clone https://github.com/vysakhprakash7328/interview_scheduler.git
     cd interview-scheduling-api
     Build and run containers using Docker Compose:
 
@@ -93,18 +93,20 @@ This project provides an API to help schedule interviews by enabling candidates 
     Request Body:
     
     {
-        "name": "username"
+        "name": "username",
+        "user_type": "Interviewer" or "Candidate"
     }
     Response:
     
     {
         "id": 1,
-        "name": "username"
+        "name": "username",
+        "user_type": "usertype"
     }
 
-    Description: Registers a new user (candidate or interviewer). The user is identified by the name field.
+    Description: Registers a new user (Candidate or Interviewer). The user is identified by the name field.
 
-2. Get Users
+3. Get Users
 
     Endpoint: /api/get_users/
     Method: GET
@@ -114,12 +116,13 @@ This project provides an API to help schedule interviews by enabling candidates 
     [
         {
             "id": 1,
-            "name": "username"
+            "name": "username",
+            "user_type": "usertype"
         }
     ]
     Description: Retrieves a list of all registered users.
 
-3. Register Availability
+4. Register Availability
 
 Endpoint: /api/register_availability/
 
@@ -128,6 +131,7 @@ Endpoint: /api/register_availability/
     
     {
         "user": 1,
+        "date": "2024-11-25",
         "start_time": "10:00 AM",
         "end_time": "2:00 PM"
     }
@@ -135,6 +139,7 @@ Endpoint: /api/register_availability/
    
     {
         "user": 1,
+        "date": "2024-11-25",
         "start_time": "10:00 AM",
         "end_time": "2:00 PM"
     }
@@ -152,7 +157,7 @@ Endpoint: /api/register_availability/
     {
         "success": true,
         "possible_slots": {
-            "2024-05-02T00:00:00": [
+            "2024-05-02": [
                 ["10:00 AM", "11:00 AM"],
                 ["11:00 AM", "12:00 PM"]
             ]
@@ -175,7 +180,43 @@ UI/UX: Build a frontend application using React or another framework to allow us
 Performance optimizations: Improve the query performance for fetching large amounts of data using pagination or caching mechanisms.
 License
 
-This project is open source and available under the MIT License.
+***Suggestion for a better solution to the above-mentioned interview scheduling problem***
+
+A prioritized interview scheduling system can be implemented to handle complex requirements effectively. The system can address different time slot durations, urgency of roles, and dynamic rescheduling needs. Below are the key improvements that make this solution better:
+
+1. Priority-Based Scheduling
+
+  Introduce a priority flag for interview requests based on the urgency of the role (e.g., high, medium, low).
+  Schedule higher-priority interviews first when overlapping slots are available.
+  
+2. Flexible Time Slot Durations
+
+  Allow interview durations to vary (e.g., 30 minutes, 1 hour, or custom).
+  Calculate overlapping slots dynamically based on these flexible durations.
+  
+3. Dynamic Rescheduling
+
+  Handle last-minute changes by dynamically rescheduling interviews when interviewers have urgent meetings.
+  Notify both the candidate and interviewer immediately with new proposed slots.
+  
+4. Automated Scheduling with HR Approval
+
+  Automate the scheduling process by proposing optimal slots based on availability and role priority.
+  Provide HR managers with the ability to approve or override the schedule before confirmation.
+
+5. Notification and Communication
+
+  Send email or SMS notifications to candidates and interviewers for:
+  Initial slot confirmation.
+  Rescheduling updates, including the reason for changes.
+  Include calendar invites in notifications for seamless tracking.
+  
+6. Self-Service Options
+
+  Enable candidates and interviewers to view and manage their schedules through a portal.
+  Allow them to propose alternate slots, making the process collaborative.
+  Integration with Calendars
+
 
 Docker Commands Recap:
 
@@ -186,4 +227,3 @@ Stop and remove containers:
 
 docker-compose down
 
-This README file provides a good overview of your API, installation steps, Docker setup, and usage instructions for running it both locally and via Docker.
